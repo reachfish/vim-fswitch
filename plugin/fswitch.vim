@@ -333,19 +333,39 @@ endfunction
 "
 " The autocmds we set up to set up the buffer variables for us.
 "
+"augroup fswitch_au_group
+"    au!
+"    au BufEnter *.c    call s:SetVariables('h',       'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|')
+"    au BufEnter *.cc   call s:SetVariables('hh',      'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|')
+"    au BufEnter *.cpp  call s:SetVariables('hpp,h',   'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|')
+"    au BufEnter *.cxx  call s:SetVariables('hxx',     'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|')
+"    au BufEnter *.C    call s:SetVariables('H',       'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|')
+"    au BufEnter *.m    call s:SetVariables('h',       'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|')
+"    au BufEnter *.h    call s:SetVariables('c,cpp,m', 'reg:/include/src/,reg:/include.*/src/,ifrel:|/include/|../src|')
+"    au BufEnter *.hh   call s:SetVariables('cc',      'reg:/include/src/,reg:/include.*/src/,ifrel:|/include/|../src|')
+"    au BufEnter *.hpp  call s:SetVariables('cpp',     'reg:/include/src/,reg:/include.*/src/,ifrel:|/include/|../src|')
+"    au BufEnter *.hxx  call s:SetVariables('cxx',     'reg:/include/src/,reg:/include.*/src/,ifrel:|/include/|../src|')
+"    au BufEnter *.H    call s:SetVariables('C',       'reg:/include/src/,reg:/include.*/src/,ifrel:|/include/|../src|')
+"augroup END
+
+let s:inc_path = 'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|,rel:include'
+let s:src_path = 'reg:/include/src/,reg:/include.*/src/,ifrel:|/include/|../src|,rel:..'
+let s:inc_posix = 'h,hh,hpp,H'
+let s:src_posix = 'c,cpp,cc,cxx,C,m'
+
 augroup fswitch_au_group
     au!
-    au BufEnter *.c    call s:SetVariables('h',       'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|')
-    au BufEnter *.cc   call s:SetVariables('hh',      'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|')
-    au BufEnter *.cpp  call s:SetVariables('hpp,h',   'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|')
-    au BufEnter *.cxx  call s:SetVariables('hxx',     'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|')
-    au BufEnter *.C    call s:SetVariables('H',       'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|')
-    au BufEnter *.m    call s:SetVariables('h',       'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|')
-    au BufEnter *.h    call s:SetVariables('c,cpp,m', 'reg:/include/src/,reg:/include.*/src/,ifrel:|/include/|../src|')
-    au BufEnter *.hh   call s:SetVariables('cc',      'reg:/include/src/,reg:/include.*/src/,ifrel:|/include/|../src|')
-    au BufEnter *.hpp  call s:SetVariables('cpp',     'reg:/include/src/,reg:/include.*/src/,ifrel:|/include/|../src|')
-    au BufEnter *.hxx  call s:SetVariables('cxx',     'reg:/include/src/,reg:/include.*/src/,ifrel:|/include/|../src|')
-    au BufEnter *.H    call s:SetVariables('C',       'reg:/include/src/,reg:/include.*/src/,ifrel:|/include/|../src|')
+    au BufEnter *.c    call s:SetVariables(s:inc_posix, s:inc_path)
+    au BufEnter *.cc   call s:SetVariables(s:inc_posix, s:inc_path)
+    au BufEnter *.cpp  call s:SetVariables(s:inc_posix, s:inc_path)
+    au BufEnter *.cxx  call s:SetVariables(s:inc_posix, s:inc_path)
+    au BufEnter *.C    call s:SetVariables(s:inc_posix, s:inc_path)
+    au BufEnter *.m    call s:SetVariables(s:inc_posix, s:inc_path)
+    au BufEnter *.h    call s:SetVariables(s:src_posix, s:src_path)
+    au BufEnter *.hh   call s:SetVariables(s:src_posix, s:src_path)
+    au BufEnter *.hpp  call s:SetVariables(s:src_posix, s:src_path)
+    au BufEnter *.hxx  call s:SetVariables(s:src_posix, s:src_path)
+    au BufEnter *.H    call s:SetVariables(s:src_posix, s:src_path)
 augroup END
 
 "
